@@ -16,6 +16,7 @@ class SpiderSpider(scrapy.Spider):
     def parse(self, response):
         links = response.css('.list-left dd:not(.page) a::attr(href)').getall()
         for link in links:
+            # to download picture, change parse_girl to parse_picture
             yield response.follow(link, callback=self.parse_girl)
         next_page = response.css('.page').re_first(r'.*<a href="(.*?)" class="page-en">下一页</a>')
         if next_page:
